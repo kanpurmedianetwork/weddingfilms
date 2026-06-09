@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
-  // DYNAMIC HERO VIDEO LOADER (AVOID DOUBLE DOWNLOAD)
+  // DYNAMIC HERO HERO VIDEO LOADER (AVOID DOUBLE DOWNLOAD)
   // ==========================================================================
   const desktopVideo = document.querySelector('.hero-video-desktop');
   const mobileVideo = document.querySelector('.hero-video-mobile');
@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMobile) {
       desktopVideo.remove();
       mobileVideo.setAttribute('preload', 'auto');
+      mobileVideo.autoplay = true;
       mobileVideo.load();
       mobileVideo.play().catch(err => console.log('Autoplay blocked:', err));
     } else {
       mobileVideo.remove();
       desktopVideo.setAttribute('preload', 'auto');
+      desktopVideo.autoplay = true;
       desktopVideo.load();
       desktopVideo.play().catch(err => console.log('Autoplay blocked:', err));
     }
