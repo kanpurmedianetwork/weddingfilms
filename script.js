@@ -1,27 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ==========================================================================
-  // DYNAMIC HERO HERO VIDEO LOADER (AVOID DOUBLE DOWNLOAD)
-  // ==========================================================================
-  const desktopVideo = document.querySelector('.hero-video-desktop');
-  const mobileVideo = document.querySelector('.hero-video-mobile');
-  
-  if (desktopVideo && mobileVideo) {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      desktopVideo.remove();
-      mobileVideo.setAttribute('preload', 'auto');
-      mobileVideo.autoplay = true;
-      mobileVideo.load();
-      mobileVideo.play().catch(err => console.log('Autoplay blocked:', err));
-    } else {
-      mobileVideo.remove();
-      desktopVideo.setAttribute('preload', 'auto');
-      desktopVideo.autoplay = true;
-      desktopVideo.load();
-      desktopVideo.play().catch(err => console.log('Autoplay blocked:', err));
-    }
-  }
+
 
   // ==========================================================================
   // STICKY HEADER & NAV HIGHLIGHT

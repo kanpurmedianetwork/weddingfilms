@@ -157,19 +157,37 @@
          HERO SECTION (FAST FLASHCUT VIDEO BACKGROUND)
          ========================================================================== -->
     <section id="hero">
+      <!-- Hidden elements to force Vite to compile the video assets -->
+      <div style="display: none;">
+        <video id="link-video-desktop" src="assets/hero_video_desktop.mp4" preload="none"></video>
+        <video id="link-video-mobile" src="assets/hero_video_mobile.mp4" preload="none"></video>
+      </div>
+
       <div class="video-background">
-        <!-- Desktop Video -->
-        <video class="hero-video-desktop" loop muted playsinline preload="none">
-          <source src="assets/hero_video_desktop.mp4" type="video/mp4">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <!-- Mobile Video -->
-        <video class="hero-video-mobile" loop muted playsinline preload="none">
-          <source src="assets/hero_video_mobile.mp4" type="video/mp4">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <script>
+          (function() {
+            var isMobile = window.innerWidth <= 768;
+            var desktopLink = document.getElementById('link-video-desktop');
+            var mobileLink = document.getElementById('link-video-mobile');
+            var videoSrc = '';
+            
+            if (isMobile && mobileLink) {
+              videoSrc = mobileLink.getAttribute('src');
+            } else if (desktopLink) {
+              videoSrc = desktopLink.getAttribute('src');
+            }
+            
+            if (videoSrc) {
+              document.write(
+                '<video class="' + (isMobile ? 'hero-video-mobile' : 'hero-video-desktop') + '" autoplay loop muted playsinline preload="auto">' +
+                  '<source src="' + videoSrc + '" type="video/mp4">' +
+                  '<source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">' +
+                  'Your browser does not support the video tag.' +
+                '</video>'
+              );
+            }
+          })();
+        </script>
       </div>
       <div class="video-overlay"></div>
       
