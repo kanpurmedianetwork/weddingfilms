@@ -1,6 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
+  // DYNAMIC HERO VIDEO LOADER (AVOID DOUBLE DOWNLOAD)
+  // ==========================================================================
+  const desktopVideo = document.querySelector('.hero-video-desktop');
+  const mobileVideo = document.querySelector('.hero-video-mobile');
+  
+  if (desktopVideo && mobileVideo) {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      desktopVideo.remove();
+      mobileVideo.setAttribute('preload', 'auto');
+      mobileVideo.load();
+      mobileVideo.play().catch(err => console.log('Autoplay blocked:', err));
+    } else {
+      mobileVideo.remove();
+      desktopVideo.setAttribute('preload', 'auto');
+      desktopVideo.load();
+      desktopVideo.play().catch(err => console.log('Autoplay blocked:', err));
+    }
+  }
+
+  // ==========================================================================
   // STICKY HEADER & NAV HIGHLIGHT
   // ==========================================================================
   const header = document.querySelector('header');
@@ -97,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   const filterButtons = document.querySelectorAll('.filter-btn');
   const portfolioItems = document.querySelectorAll('.portfolio-item');
+  const portfolioGrid = document.querySelector('.portfolio-grid');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -105,6 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
       button.classList.add('active');
 
       const filterValue = button.getAttribute('data-filter');
+
+      // Toggle filtering class
+      if (portfolioGrid) {
+        if (filterValue === 'all') {
+          portfolioGrid.classList.remove('filtering');
+        } else {
+          portfolioGrid.classList.add('filtering');
+        }
+      }
 
       portfolioItems.forEach(item => {
         item.style.transform = 'scale(0.85)';

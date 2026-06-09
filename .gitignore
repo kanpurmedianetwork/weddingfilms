@@ -3,3 +3,5 @@ dist/
 .DS_Store
 *.log
 .gemini/
+assets/hero_video_desktop.mp4
+assets/hero_video_mobile.mp4

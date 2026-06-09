@@ -430,6 +430,23 @@ header.scrolled .mobile-toggle span,
   filter: grayscale(100%) contrast(1.15) brightness(0.45);
 }
 
+.hero-video-mobile {
+  display: none;
+}
+
+.hero-video-desktop {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hero-video-desktop {
+    display: none;
+  }
+  .hero-video-mobile {
+    display: block;
+  }
+}
+
 /* Linear overlay to fade B&W video directly into the white page background */
 .video-overlay {
   position: absolute;
@@ -849,6 +866,32 @@ header.scrolled .mobile-toggle span,
   grid-auto-rows: 280px;
   grid-auto-flow: dense;
   gap: 2rem;
+}
+
+/* Balanced Centered Layout during Filtering (Prevents Random Ending Holes) */
+.portfolio-grid.filtering {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.portfolio-grid.filtering .portfolio-item {
+  flex: 0 1 calc(33.333% - 1.34rem); /* 3 columns */
+  min-width: 290px;
+  height: 280px;
+  aspect-ratio: auto;
+}
+
+/* Reset bento orientation spans in filtered flex states */
+.portfolio-grid.filtering .portfolio-item.portrait,
+.portfolio-grid.filtering .portfolio-item.landscape,
+.portfolio-grid.filtering .portfolio-item.wide,
+.portfolio-grid.filtering .portfolio-item.featured {
+  grid-column: span 1 !important;
+  grid-row: span 1 !important;
+  aspect-ratio: auto;
+  width: auto;
 }
 
 .portfolio-item {
@@ -1714,6 +1757,10 @@ footer .logo img {
     grid-auto-rows: 240px;
     gap: 1.5rem;
   }
+  .portfolio-grid.filtering .portfolio-item {
+    flex: 0 1 calc(50% - 0.75rem); /* 2 columns */
+    height: 240px;
+  }
   .cinema-showcase-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -1829,13 +1876,28 @@ footer .logo img {
   }
 
   .logo img {
-    height: 40px; /* Compact logo on mobile screens */
+    height: 36px; /* Compact logo on mobile screens */
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+  }
+
+  .logo-text span {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
   }
 
   .portfolio-grid {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 1.5rem;
+  }
+
+  .portfolio-grid.filtering .portfolio-item {
+    flex: 0 1 100%; /* 1 column */
+    height: auto;
+    aspect-ratio: 3/2;
   }
 
   .portfolio-item.portrait,

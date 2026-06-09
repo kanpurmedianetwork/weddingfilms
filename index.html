@@ -158,10 +158,15 @@
          ========================================================================== -->
     <section id="hero">
       <div class="video-background">
-        <video autoplay loop muted playsinline preload="auto">
-          <!-- Local original user video source checked first -->
-          <source src="assets/hero_video.mp4" type="video/mp4">
-          <!-- Online backup high-speed wedding loop fallback -->
+        <!-- Desktop Video -->
+        <video class="hero-video-desktop" autoplay loop muted playsinline preload="none">
+          <source src="assets/hero_video_desktop.mp4" type="video/mp4">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <!-- Mobile Video -->
+        <video class="hero-video-mobile" autoplay loop muted playsinline preload="none">
+          <source src="assets/hero_video_mobile.mp4" type="video/mp4">
           <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -351,7 +356,7 @@
         <div class="portfolio-grid reveal">
           
           <!-- Item 1: Engagement -->
-          <div class="portfolio-item" data-category="eng">
+          <div class="portfolio-item portrait" data-category="eng">
             <img src="assets/portfolio_eng1.webp" alt="The Engagement Ring Exchange">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -361,7 +366,7 @@
           </div>
 
           <!-- Item 2: Engagement -->
-          <div class="portfolio-item" data-category="eng">
+          <div class="portfolio-item landscape" data-category="eng">
             <img src="assets/portfolio_eng2.webp" alt="Engagement Couple Portrait">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -371,7 +376,7 @@
           </div>
 
           <!-- Item 3: Engagement -->
-          <div class="portfolio-item" data-category="eng">
+          <div class="portfolio-item landscape" data-category="eng">
             <img src="assets/portfolio_eng3.webp" alt="Sacred Ring Ceremony">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -381,7 +386,7 @@
           </div>
 
           <!-- Item 4: Engagement -->
-          <div class="portfolio-item" data-category="eng">
+          <div class="portfolio-item wide" data-category="eng">
             <img src="assets/portfolio_eng4.webp" alt="Celebration Handshakes">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -391,7 +396,7 @@
           </div>
 
           <!-- Item 5: Engagement -->
-          <div class="portfolio-item" data-category="eng">
+          <div class="portfolio-item featured" data-category="eng">
             <img src="assets/portfolio_eng5.webp" alt="Grand Portrait Frame">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -401,7 +406,7 @@
           </div>
 
           <!-- Item 6: Haldi -->
-          <div class="portfolio-item" data-category="haldi">
+          <div class="portfolio-item portrait" data-category="haldi">
             <img src="assets/portfolio_haldi1.webp" alt="Turmeric Splash Joy">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -411,7 +416,7 @@
           </div>
 
           <!-- Item 7: Haldi -->
-          <div class="portfolio-item" data-category="haldi">
+          <div class="portfolio-item landscape" data-category="haldi">
             <img src="assets/portfolio_haldi2.webp" alt="The Haldi Ritual">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -421,7 +426,7 @@
           </div>
 
           <!-- Item 8: Haldi -->
-          <div class="portfolio-item" data-category="haldi">
+          <div class="portfolio-item wide" data-category="haldi">
             <img src="assets/portfolio_haldi3.webp" alt="Laughter and Yellows">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -431,7 +436,7 @@
           </div>
 
           <!-- Item 9: Haldi -->
-          <div class="portfolio-item" data-category="haldi">
+          <div class="portfolio-item portrait" data-category="haldi">
             <img src="assets/portfolio_haldi4.webp" alt="Grand Festive Vibe">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -441,7 +446,7 @@
           </div>
 
           <!-- Item 10: Haldi -->
-          <div class="portfolio-item" data-category="haldi">
+          <div class="portfolio-item landscape" data-category="haldi">
             <img src="assets/portfolio_haldi5.webp" alt="Blessings and Shower">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -451,7 +456,7 @@
           </div>
 
           <!-- Item 11: Mehndi -->
-          <div class="portfolio-item" data-category="mehndi">
+          <div class="portfolio-item landscape" data-category="mehndi">
             <img src="assets/portfolio_mehndi1.webp" alt="Delicate Henna Detailing">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -461,7 +466,7 @@
           </div>
 
           <!-- Item 12: Mehndi -->
-          <div class="portfolio-item" data-category="mehndi">
+          <div class="portfolio-item wide" data-category="mehndi">
             <img src="assets/portfolio_mehndi2.webp" alt="Bridal Mehndi Portrait">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -471,7 +476,7 @@
           </div>
 
           <!-- Item 13: Mehndi -->
-          <div class="portfolio-item" data-category="mehndi">
+          <div class="portfolio-item featured" data-category="mehndi">
             <img src="assets/portfolio_mehndi3.webp" alt="Henna Celebration Smiles">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -481,7 +486,7 @@
           </div>
 
           <!-- Item 14: Mehndi -->
-          <div class="portfolio-item" data-category="mehndi">
+          <div class="portfolio-item portrait" data-category="mehndi">
             <img src="assets/portfolio_mehndi4.webp" alt="Dance Beat Vibrancy">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -491,7 +496,7 @@
           </div>
 
           <!-- Item 15: Mehndi -->
-          <div class="portfolio-item" data-category="mehndi">
+          <div class="portfolio-item landscape" data-category="mehndi">
             <img src="assets/portfolio_mehndi5.webp" alt="Traditional Mehndi Setup">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -501,7 +506,7 @@
           </div>
 
           <!-- Item 16: Prewedding -->
-          <div class="portfolio-item" data-category="prewedding">
+          <div class="portfolio-item wide" data-category="prewedding">
             <img src="assets/portfolio_prewedding1.webp" alt="Sunset Fields Walk">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -511,7 +516,7 @@
           </div>
 
           <!-- Item 17: Prewedding -->
-          <div class="portfolio-item" data-category="prewedding">
+          <div class="portfolio-item portrait" data-category="prewedding">
             <img src="assets/portfolio_prewedding2.webp" alt="Romantic Sunset Embrace">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -521,7 +526,7 @@
           </div>
 
           <!-- Item 18: Prewedding -->
-          <div class="portfolio-item" data-category="prewedding">
+          <div class="portfolio-item landscape" data-category="prewedding">
             <img src="assets/portfolio_prewedding3.webp" alt="Architectural Grandeur">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -531,7 +536,7 @@
           </div>
 
           <!-- Item 19: Prewedding -->
-          <div class="portfolio-item" data-category="prewedding">
+          <div class="portfolio-item landscape" data-category="prewedding">
             <img src="assets/portfolio_prewedding4.webp" alt="Scenic Nature Path">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -541,7 +546,7 @@
           </div>
 
           <!-- Item 20: Prewedding -->
-          <div class="portfolio-item" data-category="prewedding">
+          <div class="portfolio-item wide" data-category="prewedding">
             <img src="assets/portfolio_prewedding5.webp" alt="Candid Couple Glares">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -551,7 +556,7 @@
           </div>
 
           <!-- Item 21: Wedding -->
-          <div class="portfolio-item" data-category="wedding">
+          <div class="portfolio-item featured" data-category="wedding">
             <img src="assets/portfolio_wedding1.webp" alt="Sacred Pheras Highlights">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -561,7 +566,7 @@
           </div>
 
           <!-- Item 22: Wedding -->
-          <div class="portfolio-item" data-category="wedding">
+          <div class="portfolio-item portrait" data-category="wedding">
             <img src="assets/portfolio_wedding2.webp" alt="Grand Vows and Garland">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -571,7 +576,7 @@
           </div>
 
           <!-- Item 23: Wedding -->
-          <div class="portfolio-item" data-category="wedding">
+          <div class="portfolio-item landscape" data-category="wedding">
             <img src="assets/portfolio_wedding3.webp" alt="Royal Mandap Setup">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -581,7 +586,7 @@
           </div>
 
           <!-- Item 24: Wedding -->
-          <div class="portfolio-item" data-category="wedding">
+          <div class="portfolio-item landscape" data-category="wedding">
             <img src="assets/portfolio_wedding4.webp" alt="Candid Vidai Tear">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -591,7 +596,7 @@
           </div>
 
           <!-- Item 25: Wedding -->
-          <div class="portfolio-item" data-category="wedding">
+          <div class="portfolio-item landscape" data-category="wedding">
             <img src="assets/portfolio_wedding5.webp" alt="The Bride Entrance">
             <div class="portfolio-item-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
