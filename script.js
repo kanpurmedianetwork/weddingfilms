@@ -95,107 +95,234 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // PORTFOLIO FILTER SYSTEM
+  // PORTFOLIO HORIZONTAL INFINITE LOOP WITH MOUSE/DRAG RESPONSIVENESS
   // ==========================================================================
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const portfolioItems = document.querySelectorAll('.portfolio-item');
-  const portfolioGrid = document.querySelector('.portfolio-grid');
-
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Set active button class
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      const filterValue = button.getAttribute('data-filter');
-
-      // Toggle filtering class
-      if (portfolioGrid) {
-        if (filterValue === 'all') {
-          portfolioGrid.classList.remove('filtering');
-        } else {
-          portfolioGrid.classList.add('filtering');
-        }
-      }
-
-      portfolioItems.forEach(item => {
-        item.style.transform = 'scale(0.85)';
-        item.style.opacity = '0';
-        
-        setTimeout(() => {
-          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-            item.classList.remove('hidden');
-            setTimeout(() => {
-              item.style.transform = 'scale(1)';
-              item.style.opacity = '1';
-            }, 50);
-          } else {
-            item.classList.add('hidden');
-          }
-        }, 300);
-      });
-    });
-  });
-
-  // Check if original images have loaded in portfolio items
-  portfolioItems.forEach(item => {
-    const img = item.querySelector('img');
-    if (img) {
-      // Check if image source is set and exists
-      img.addEventListener('load', () => {
-        item.classList.add('has-img');
-      });
-      // Handle cached images
-      if (img.complete && img.naturalWidth > 0) {
-        item.classList.add('has-img');
-      }
-    }
-  });
-
-  // ==========================================================================
-  // PORTFOLIO LIGHTBOX MODAL
-  // ==========================================================================
+  const track = document.getElementById('portfolio-track');
+  const container = document.querySelector('.portfolio-loop-container');
+  const tabs = document.querySelectorAll('.portfolio-tab');
+  
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('.lightbox-content');
   const lightboxCaption = lightbox.querySelector('.lightbox-caption');
   const lightboxCategory = lightbox.querySelector('.lightbox-category');
   const lightboxClose = lightbox.querySelector('.lightbox-close');
 
-  portfolioItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const title = item.querySelector('h4').textContent;
-      const category = item.querySelector('span').textContent;
-      const img = item.querySelector('img');
+  if (track && container) {
+    let activeCategory = 'eng';
+    let trackWidth = 0;
+    let xOffset = 0;
+    let speed = 0.6; // Auto-scroll speed
+    let targetSpeed = 0.6;
+    let isHovered = false;
+    let isDragging = false;
+    let startX = 0;
+    let dragOffset = 0;
+    let animationId = null;
 
-      lightboxCaption.textContent = title;
-      lightboxCategory.textContent = category;
+    // Load images dynamically
+    const loadCategory = (cat) => {
+      activeCategory = cat;
+      track.innerHTML = '';
+      
+      // Select files for display
+      const catImages = Array.from({ length: 15 }, (_, i) => `assets/gallery/${cat}/${cat}_${i + 1}.webp`);
+      
+      // Duplicate for infinite scrolling loop
+      const doubleImages = [...catImages, ...catImages];
+      
+      // Create elements
+      doubleImages.forEach((src, idx) => {
+        const item = document.createElement('div');
+        item.className = 'loop-item';
+        
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `${cat.toUpperCase()} Showcase Frame ${idx % 15 + 1}`;
+        img.loading = 'lazy';
+        
+        // Open lightbox on click
+        img.addEventListener('click', (e) => {
+          if (isDragging) return; // Prevent clicking during drag
+          
+          lightboxCaption.textContent = img.alt;
+          lightboxCategory.textContent = `${cat.toUpperCase()} Portfolio`;
+          lightboxImg.src = src;
+          lightboxImg.style.display = 'block';
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Lock background scroll
+        });
 
-      if (img && item.classList.contains('has-img')) {
-        lightboxImg.src = img.src;
-        lightboxImg.style.display = 'block';
-      } else {
-        // Fallback: If no custom image loaded, show a gold vector/icon block representation
-        lightboxImg.src = '';
-        lightboxImg.style.display = 'none';
-        lightboxCaption.textContent = `${title} (Drop your original file in assets to show here)`;
+        item.appendChild(img);
+        track.appendChild(item);
+      });
+
+      // Recalculate dimensions after images load
+      setTimeout(recalculateWidth, 300);
+    };
+
+    const recalculateWidth = () => {
+      const items = track.querySelectorAll('.loop-item');
+      if (items.length === 0) return;
+
+      let totalWidth = 0;
+      items.forEach(item => {
+        totalWidth += item.getBoundingClientRect().width + 24; // Width + 24px gap (1.5rem)
+      });
+      
+      // Since we duplicated, trackWidth of one loop is totalWidth / 2
+      trackWidth = totalWidth / 2;
+    };
+
+    // Auto-scroll loop
+    const animate = () => {
+      if (trackWidth > 0) {
+        if (!isDragging) {
+          // Update position based on current speed
+          // Interpolate current speed to target speed for smooth transition
+          speed += (targetSpeed - speed) * 0.1;
+          xOffset -= speed;
+
+          // Seamless loop check:
+          // If we scroll past one full set of images (xOffset <= -trackWidth), snap back
+          if (xOffset <= -trackWidth) {
+            xOffset += trackWidth;
+          }
+          // If we scroll past the left boundary (xOffset >= 0), snap forward
+          if (xOffset > 0) {
+            xOffset -= trackWidth;
+          }
+          
+          track.style.transform = `translateX(${xOffset}px)`;
+        }
       }
+      animationId = requestAnimationFrame(animate);
+    };
 
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Lock background scroll
+    // Mouse hover position responsiveness
+    container.addEventListener('mousemove', (e) => {
+      isHovered = true;
+      const rect = container.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const centerX = rect.width / 2;
+      
+      // Calculate normalized offset from center (-1 to 1)
+      const offset = (mouseX - centerX) / centerX;
+      
+      // Control scroll speed and direction based on offset
+      // Max speed is 5px per frame in either direction
+      targetSpeed = offset * 5;
     });
-  });
 
-  lightboxClose.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = 'auto'; // Unlock scroll
-  });
+    container.addEventListener('mouseleave', () => {
+      isHovered = false;
+      targetSpeed = 0.6; // Return to default auto-scroll speed
+    });
 
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+    // Drag and swipe functionality
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX - xOffset;
+      container.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      const currentX = e.clientX;
+      xOffset = currentX - startX;
+      
+      // Looping checks while dragging
+      if (trackWidth > 0) {
+        if (xOffset <= -trackWidth) {
+          startX += trackWidth;
+          xOffset += trackWidth;
+        }
+        if (xOffset > 0) {
+          startX -= trackWidth;
+          xOffset -= trackWidth;
+        }
+      }
+      
+      track.style.transform = `translateX(${xOffset}px)`;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      }
+    });
+
+    // Touch support for mobile
+    let touchStartX = 0;
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      touchStartX = e.touches[0].clientX - xOffset;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      xOffset = currentX - touchStartX;
+      
+      if (trackWidth > 0) {
+        if (xOffset <= -trackWidth) {
+          touchStartX += trackWidth;
+          xOffset += trackWidth;
+        }
+        if (xOffset > 0) {
+          touchStartX -= trackWidth;
+          xOffset -= trackWidth;
+        }
+      }
+      track.style.transform = `translateX(${xOffset}px)`;
+    });
+
+    container.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // Tab bindings
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Fade out
+        track.style.opacity = '0';
+        setTimeout(() => {
+          loadCategory(tab.getAttribute('data-category'));
+          xOffset = 0; // Reset scroll position
+          track.style.opacity = '1';
+        }, 300);
+      });
+    });
+
+    // Lightbox close helpers
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Unlock scroll
+      });
     }
-  });
+
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
+    // Initial load
+    loadCategory('eng');
+    animate();
+    
+    // Recalculate on resize
+    window.addEventListener('resize', recalculateWidth);
+  }
 
   // ==========================================================================
   // TESTIMONIALS SLIDER
@@ -268,5 +395,139 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ==========================================================================
+  // 3D ALBUM TILT EFFECT
+  // ==========================================================================
+  const albumCover = document.getElementById('album-cover');
+  if (albumCover) {
+    albumCover.addEventListener('mousemove', (e) => {
+      const rect = albumCover.getBoundingClientRect();
+      const x = e.clientX - rect.left; // x position within the element
+      const y = e.clientY - rect.top;  // y position within the element
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Calculate rotation based on cursor distance from center (Max rotation: 12deg)
+      const rotateX = ((centerY - y) / centerY) * 12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+      
+      albumCover.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    
+    albumCover.addEventListener('mouseleave', () => {
+      albumCover.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  }
+
+  // ==========================================================================
+  // SERVICES HOVER MEDIA PREVIEW
+  // ==========================================================================
+  const serviceRows = document.querySelectorAll('.service-row');
+  
+  // Create floating preview element
+  const preview = document.createElement('div');
+  preview.className = 'service-hover-preview';
+  const previewImg = document.createElement('img');
+  preview.appendChild(previewImg);
+  document.body.appendChild(preview);
+  
+  serviceRows.forEach(row => {
+    const imgSrc = row.getAttribute('data-image');
+    if (!imgSrc) return;
+    
+    row.addEventListener('mouseenter', () => {
+      previewImg.src = imgSrc;
+      preview.classList.add('active');
+    });
+    
+    row.addEventListener('mousemove', (e) => {
+      const offset = 20; // Offset preview card from cursor pointer
+      preview.style.left = `${e.clientX + offset}px`;
+      preview.style.top = `${e.clientY + offset}px`;
+    });
+    
+    row.addEventListener('mouseleave', () => {
+      preview.classList.remove('active');
+    });
+  });
+
+  // ==========================================================================
+  // TRAILER VIDEO PLAYER MODAL
+  // ==========================================================================
+  const trailerModal = document.getElementById('trailer-modal');
+  const trailerPlayer = document.getElementById('trailer-player');
+  const trailerClose = document.getElementById('trailer-modal-close');
+  
+  const openTrailer = (videoSrc) => {
+    if (trailerModal && trailerPlayer) {
+      if (videoSrc) {
+        let source = trailerPlayer.querySelector('source');
+        if (!source) {
+          source = document.createElement('source');
+          trailerPlayer.appendChild(source);
+        }
+        source.src = videoSrc;
+        trailerPlayer.load();
+      }
+      
+      trailerModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      trailerPlayer.currentTime = 0;
+      trailerPlayer.play().catch(err => console.log('Auto-play blocked or failed:', err));
+    }
+  };
+  
+  const closeTrailer = () => {
+    if (trailerModal && trailerPlayer) {
+      trailerModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      trailerPlayer.pause();
+    }
+  };
+  
+  // Bind all teaser showcase cards
+  const teaserCards = document.querySelectorAll('.teaser-showcase-card');
+  teaserCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const videoSrc = card.getAttribute('data-video');
+      openTrailer(videoSrc);
+    });
+  });
+  
+  if (trailerClose) {
+    trailerClose.addEventListener('click', closeTrailer);
+  }
+  
+  if (trailerModal) {
+    trailerModal.addEventListener('click', (e) => {
+      if (e.target === trailerModal) {
+        closeTrailer();
+      }
+    });
+  }
+
+  // ==========================================================================
+  // LAZY LOAD AND DEFER VIDEOS IN VIEWPORT
+  // ==========================================================================
+  const lazyVideos = document.querySelectorAll('video.hero-teaser-video');
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(err => {});
+        } else {
+          video.pause();
+        }
+      });
+    });
+    
+    lazyVideos.forEach(video => {
+      videoObserver.observe(video);
+    });
+  }
 
 });

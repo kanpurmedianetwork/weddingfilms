@@ -159,29 +159,38 @@
     <section id="hero">
       <!-- Hidden elements to force Vite to compile the video assets -->
       <div style="display: none;">
-        <video id="link-video-desktop" src="assets/hero_video_desktop.mp4" preload="none"></video>
-        <video id="link-video-mobile" src="assets/hero_video_mobile.mp4" preload="none"></video>
+        <video id="link-video-desktop-webm" src="assets/hero_video_desktop_optimized.webm" preload="none"></video>
+        <video id="link-video-desktop-mp4" src="assets/hero_video_desktop_optimized.mp4" preload="none"></video>
+        <video id="link-video-mobile-webm" src="assets/hero_video_mobile_optimized.webm" preload="none"></video>
+        <video id="link-video-mobile-mp4" src="assets/hero_video_mobile_optimized.mp4" preload="none"></video>
       </div>
 
-      <div class="video-background">
+      <!-- Full-scale video background container -->
+      <div class="hero-video-bg">
         <script>
           (function() {
             var isMobile = window.innerWidth <= 768;
-            var desktopLink = document.getElementById('link-video-desktop');
-            var mobileLink = document.getElementById('link-video-mobile');
-            var videoSrc = '';
+            var desktopWebm = document.getElementById('link-video-desktop-webm');
+            var desktopMp4 = document.getElementById('link-video-desktop-mp4');
+            var mobileWebm = document.getElementById('link-video-mobile-webm');
+            var mobileMp4 = document.getElementById('link-video-mobile-mp4');
             
-            if (isMobile && mobileLink) {
-              videoSrc = mobileLink.getAttribute('src');
-            } else if (desktopLink) {
-              videoSrc = desktopLink.getAttribute('src');
+            var webmSrc = '';
+            var mp4Src = '';
+            
+            if (isMobile) {
+              webmSrc = mobileWebm ? mobileWebm.getAttribute('src') : '';
+              mp4Src = mobileMp4 ? mobileMp4.getAttribute('src') : '';
+            } else {
+              webmSrc = desktopWebm ? desktopWebm.getAttribute('src') : '';
+              mp4Src = desktopMp4 ? desktopMp4.getAttribute('src') : '';
             }
             
-            if (videoSrc) {
+            if (webmSrc || mp4Src) {
               document.write(
-                '<video class="' + (isMobile ? 'hero-video-mobile' : 'hero-video-desktop') + '" autoplay loop muted playsinline preload="auto">' +
-                  '<source src="' + videoSrc + '" type="video/mp4">' +
-                  '<source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-kissing-under-a-veil-41831-large.mp4" type="video/mp4">' +
+                '<video autoplay loop muted playsinline preload="auto" class="hero-teaser-video">' +
+                  (webmSrc ? '<source src="' + webmSrc + '" type="video/webm">' : '') +
+                  (mp4Src ? '<source src="' + mp4Src + '" type="video/mp4">' : '') +
                   'Your browser does not support the video tag.' +
                 '</video>'
               );
@@ -189,14 +198,23 @@
           })();
         </script>
       </div>
-      <div class="video-overlay"></div>
-      
-      <div class="hero-content">
-        <span class="tagline">Premium Cinematic Wedding videography</span>
-        <h1>WEDDING FILMS<span>Capturing Eternal Stories in Kanpur & Beyond</span></h1>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Book Consultation</a>
-          <a href="#portfolio" class="btn btn-outline">View Showcase</a>
+
+      <!-- Champagne-tinted overlay -->
+      <div class="hero-overlay"></div>
+
+      <!-- Center-aligned details -->
+      <div class="hero-content reveal active">
+        <span class="tagline">The Storytellers | Wedding Films</span>
+        <h2 class="hero-subtitle">A Full-Scale Cinematic Experience By The Collective</h2>
+        <h1 class="hero-title">Capturing Eternal<br><span>Moments</span></h1>
+        
+        <!-- Center play trigger removed as requested -->
+
+        <div class="hero-inline-nav">
+          <a href="#hero">Home</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#about">Approach</a>
+          <a href="#contact">Connect</a>
         </div>
       </div>
     </section>
@@ -211,7 +229,7 @@
           <div class="about-content reveal">
             <span class="section-subtitle">Our Philosophy</span>
             <h2 class="section-title">The Art of Storytelling</h2>
-            <p>At <strong>Wedding Films</strong>, we believe your wedding is not just an event; it's a cinematic masterpiece waiting to be told. Founded in the late 1990s by a passionate cinematographer who set out to capture the soul of celebrations, we have grown from a humble passion project into Kanpur's premier cinematic studio. Today, we operate as a tight-knit family of visionaries, combining decades of traditional wedding wisdom with cutting-edge cinematic technology.</p>
+            <p>At <strong>Wedding Films</strong>, we believe your wedding is not just an event; it's a cinematic masterpiece waiting to be told. Founded in 2015 by a passionate cinematographer who set out to capture the soul of celebrations, we have grown from a humble passion project into Kanpur's premier cinematic studio. Today, we operate as a tight-knit family of visionaries, combining contemporary wedding storytelling with cutting-edge cinematic technology.</p>
             <p>Unlike traditional videography that merely records, we craft bespoke, emotionally-charged wedding films. Utilizing high-end cinema gear, premium lens kits, stabilizer rigs, and professional audio acquisition, we ensure every highlight, sacred pheras, emotional Vidai, and high-energy sangeet feels grand, timeless, and uniquely yours.</p>
             
             <div class="about-stats">
@@ -224,15 +242,15 @@
                 <span class="stat-label">Happy Couples</span>
               </div>
               <div class="stat-item">
-                <span class="stat-number">20+</span>
+                <span class="stat-number">10+</span>
                 <span class="stat-label">Years of Magic</span>
               </div>
             </div>
           </div>
 
-          <!-- visual frame: displays gold template; loads 'assets/about_visual.webp' -->
+          <!-- visual frame: displays gold template; loads 'assets/gallery/wedding/wedding_3.webp' -->
           <div class="about-visual reveal">
-            <img src="assets/about_visual.webp" alt="Wedding Films Kanpur Storytelling" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:0;" onload="this.style.opacity='0.95'; this.parentElement.style.boxShadow='none';">
+            <img src="assets/gallery/wedding/wedding_3.webp" alt="Wedding Films Kanpur Storytelling" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:0;" onload="this.style.opacity='0.95'; this.parentElement.style.boxShadow='none';">
             <h4>Cinematic Storytelling</h4>
             <p>Bespoke visual narratives captured live.</p>
           </div>
@@ -255,7 +273,7 @@
         <div class="services-list">
           
           <!-- Row 1: Cinematic Wedding Films -->
-          <div class="service-row reveal">
+          <div class="service-row reveal" data-image="assets/gallery/wedding/wedding_1.webp">
             <div class="service-num">01</div>
             <div class="service-title-wrap">
               <h3>Wedding Films</h3>
@@ -273,7 +291,7 @@
           </div>
 
           <!-- Row 2: Candid Photography -->
-          <div class="service-row reveal">
+          <div class="service-row reveal" data-image="assets/gallery/eng/eng_2.webp">
             <div class="service-num">02</div>
             <div class="service-title-wrap">
               <h3>Candid Photography</h3>
@@ -291,7 +309,7 @@
           </div>
 
           <!-- Row 3: Pre-Wedding Shoots -->
-          <div class="service-row reveal">
+          <div class="service-row reveal" data-image="assets/gallery/prewedding/prewedding_2.webp">
             <div class="service-num">03</div>
             <div class="service-title-wrap">
               <h3>Pre-Wedding Shoots</h3>
@@ -309,7 +327,7 @@
           </div>
 
           <!-- Row 4: Heirloom Albums -->
-          <div class="service-row reveal">
+          <div class="service-row reveal" data-image="assets/gallery/eng/eng_8.webp">
             <div class="service-num">04</div>
             <div class="service-title-wrap">
               <h3>Luxury Albums</h3>
@@ -327,7 +345,7 @@
           </div>
 
           <!-- Row 5: Traditional Coverage -->
-          <div class="service-row reveal">
+          <div class="service-row reveal" data-image="assets/gallery/wedding/wedding_9.webp">
             <div class="service-num">05</div>
             <div class="service-title-wrap">
               <h3>Traditional Coverage</h3>
@@ -350,281 +368,94 @@
     </section>
 
     <!-- ==========================================================================
-         PORTFOLIO SECTION
+         PORTFOLIO SECTION (COLLAGE LOOK matching reference)
          ========================================================================= -->
     <section id="portfolio" class="section">
       <div class="container">
         
         <div class="section-title-wrap reveal">
           <span class="section-subtitle">Our Gallery</span>
-          <h2 class="section-title">Moments Captured</h2>
+          <h2 class="section-title">Infinite Loop Portfolio</h2>
         </div>
 
-        <!-- Filter Categories (AEO & Lead Optimized) -->
-        <div class="portfolio-filters reveal">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="eng">Engagement</button>
-          <button class="filter-btn" data-filter="haldi">Haldi</button>
-          <button class="filter-btn" data-filter="mehndi">Mehndi</button>
-          <button class="filter-btn" data-filter="prewedding">Pre-Wedding</button>
-          <button class="filter-btn" data-filter="wedding">Wedding</button>
+        <!-- Category Navigation Tabs -->
+        <div class="portfolio-tabs reveal">
+          <button class="portfolio-tab active" data-category="eng">Engagement</button>
+          <button class="portfolio-tab" data-category="haldi">Haldi</button>
+          <button class="portfolio-tab" data-category="mehndi">Mehndi</button>
+          <button class="portfolio-tab" data-category="prewedding">Pre-Wedding</button>
+          <button class="portfolio-tab" data-category="wedding">Wedding</button>
         </div>
 
-        <!-- Dynamic Masonry Grid Layout -->
-        <div class="portfolio-grid reveal">
-          
-          <!-- Item 1: Engagement -->
-          <div class="portfolio-item portrait" data-category="eng">
-            <img src="assets/portfolio_eng1.webp" alt="The Engagement Ring Exchange">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>The Ring Exchange</h4>
-            <span>Engagement</span>
+        <!-- Horizontal Loop Viewport -->
+        <div class="portfolio-loop-container reveal">
+          <div class="portfolio-loop-track" id="portfolio-track">
+            <!-- Populated dynamically by script.js -->
           </div>
-
-          <!-- Item 2: Engagement -->
-          <div class="portfolio-item landscape" data-category="eng">
-            <img src="assets/portfolio_eng2.webp" alt="Engagement Couple Portrait">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Candid Couple Smile</h4>
-            <span>Engagement</span>
-          </div>
-
-          <!-- Item 3: Engagement -->
-          <div class="portfolio-item landscape" data-category="eng">
-            <img src="assets/portfolio_eng3.webp" alt="Sacred Ring Ceremony">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Sacred Ring Ceremony</h4>
-            <span>Engagement</span>
-          </div>
-
-          <!-- Item 4: Engagement -->
-          <div class="portfolio-item wide" data-category="eng">
-            <img src="assets/portfolio_eng4.webp" alt="Celebration Handshakes">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Celebration Handshakes</h4>
-            <span>Engagement</span>
-          </div>
-
-          <!-- Item 5: Engagement -->
-          <div class="portfolio-item featured" data-category="eng">
-            <img src="assets/portfolio_eng5.webp" alt="Grand Portrait Frame">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Grand Portrait Frame</h4>
-            <span>Engagement</span>
-          </div>
-
-          <!-- Item 6: Haldi -->
-          <div class="portfolio-item portrait" data-category="haldi">
-            <img src="assets/portfolio_haldi1.webp" alt="Turmeric Splash Joy">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Turmeric Splash Joy</h4>
-            <span>Haldi</span>
-          </div>
-
-          <!-- Item 7: Haldi -->
-          <div class="portfolio-item landscape" data-category="haldi">
-            <img src="assets/portfolio_haldi2.webp" alt="The Haldi Ritual">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>The Haldi Ritual</h4>
-            <span>Haldi</span>
-          </div>
-
-          <!-- Item 8: Haldi -->
-          <div class="portfolio-item wide" data-category="haldi">
-            <img src="assets/portfolio_haldi3.webp" alt="Laughter and Yellows">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Laughter and Yellows</h4>
-            <span>Haldi</span>
-          </div>
-
-          <!-- Item 9: Haldi -->
-          <div class="portfolio-item portrait" data-category="haldi">
-            <img src="assets/portfolio_haldi4.webp" alt="Grand Festive Vibe">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Grand Festive Vibe</h4>
-            <span>Haldi</span>
-          </div>
-
-          <!-- Item 10: Haldi -->
-          <div class="portfolio-item landscape" data-category="haldi">
-            <img src="assets/portfolio_haldi5.webp" alt="Blessings and Shower">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Blessings & Shower</h4>
-            <span>Haldi</span>
-          </div>
-
-          <!-- Item 11: Mehndi -->
-          <div class="portfolio-item landscape" data-category="mehndi">
-            <img src="assets/portfolio_mehndi1.webp" alt="Delicate Henna Detailing">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Delicate Henna Detailing</h4>
-            <span>Mehndi</span>
-          </div>
-
-          <!-- Item 12: Mehndi -->
-          <div class="portfolio-item wide" data-category="mehndi">
-            <img src="assets/portfolio_mehndi2.webp" alt="Bridal Mehndi Portrait">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Bridal Mehndi Portrait</h4>
-            <span>Mehndi</span>
-          </div>
-
-          <!-- Item 13: Mehndi -->
-          <div class="portfolio-item featured" data-category="mehndi">
-            <img src="assets/portfolio_mehndi3.webp" alt="Henna Celebration Smiles">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Henna Celebration Smiles</h4>
-            <span>Mehndi</span>
-          </div>
-
-          <!-- Item 14: Mehndi -->
-          <div class="portfolio-item portrait" data-category="mehndi">
-            <img src="assets/portfolio_mehndi4.webp" alt="Dance Beat Vibrancy">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Dance Beat Vibrancy</h4>
-            <span>Mehndi</span>
-          </div>
-
-          <!-- Item 15: Mehndi -->
-          <div class="portfolio-item landscape" data-category="mehndi">
-            <img src="assets/portfolio_mehndi5.webp" alt="Traditional Mehndi Setup">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Traditional Mehndi Setup</h4>
-            <span>Mehndi</span>
-          </div>
-
-          <!-- Item 16: Prewedding -->
-          <div class="portfolio-item wide" data-category="prewedding">
-            <img src="assets/portfolio_prewedding1.webp" alt="Sunset Fields Walk">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Sunset Fields Walk</h4>
-            <span>Pre-Wedding</span>
-          </div>
-
-          <!-- Item 17: Prewedding -->
-          <div class="portfolio-item portrait" data-category="prewedding">
-            <img src="assets/portfolio_prewedding2.webp" alt="Romantic Sunset Embrace">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Romantic Sunset Embrace</h4>
-            <span>Pre-Wedding</span>
-          </div>
-
-          <!-- Item 18: Prewedding -->
-          <div class="portfolio-item landscape" data-category="prewedding">
-            <img src="assets/portfolio_prewedding3.webp" alt="Architectural Grandeur">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Architectural Grandeur</h4>
-            <span>Pre-Wedding</span>
-          </div>
-
-          <!-- Item 19: Prewedding -->
-          <div class="portfolio-item landscape" data-category="prewedding">
-            <img src="assets/portfolio_prewedding4.webp" alt="Scenic Nature Path">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Scenic Nature Path</h4>
-            <span>Pre-Wedding</span>
-          </div>
-
-          <!-- Item 20: Prewedding -->
-          <div class="portfolio-item wide" data-category="prewedding">
-            <img src="assets/portfolio_prewedding5.webp" alt="Candid Couple Glares">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Candid Couple Glares</h4>
-            <span>Pre-Wedding</span>
-          </div>
-
-          <!-- Item 21: Wedding -->
-          <div class="portfolio-item featured" data-category="wedding">
-            <img src="assets/portfolio_wedding1.webp" alt="Sacred Pheras Highlights">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Sacred Pheras Highlights</h4>
-            <span>Wedding</span>
-          </div>
-
-          <!-- Item 22: Wedding -->
-          <div class="portfolio-item portrait" data-category="wedding">
-            <img src="assets/portfolio_wedding2.webp" alt="Grand Vows and Garland">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Grand Vows & Garland</h4>
-            <span>Wedding</span>
-          </div>
-
-          <!-- Item 23: Wedding -->
-          <div class="portfolio-item landscape" data-category="wedding">
-            <img src="assets/portfolio_wedding3.webp" alt="Royal Mandap Setup">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Royal Mandap Setup</h4>
-            <span>Wedding</span>
-          </div>
-
-          <!-- Item 24: Wedding -->
-          <div class="portfolio-item landscape" data-category="wedding">
-            <img src="assets/portfolio_wedding4.webp" alt="Candid Vidai Tear">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>Candid Vidai Tear</h4>
-            <span>Wedding</span>
-          </div>
-
-          <!-- Item 25: Wedding -->
-          <div class="portfolio-item landscape" data-category="wedding">
-            <img src="assets/portfolio_wedding5.webp" alt="The Bride Entrance">
-            <div class="portfolio-item-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-            </div>
-            <h4>The Bride's Entrance</h4>
-            <span>Wedding</span>
-          </div>
-
         </div>
 
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BROWSE BY CATEGORY SECTION
+         ========================================================================== -->
+    <section class="category-section">
+      <div class="container">
+        <div class="section-title-wrap reveal">
+          <span class="section-subtitle">Visual Chapters</span>
+          <h2 class="section-title">Browse By Category</h2>
+        </div>
+
+        <div class="category-grid reveal">
+          <!-- Item 1: Groom's Prep -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/eng/eng_5.webp" alt="The Groom's Prep" loading="lazy">
+            </div>
+            <h4>The Groom's Prep</h4>
+          </div>
+
+          <!-- Item 2: Bride's Prep -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/wedding/wedding_5.webp" alt="The Bride's Prep" loading="lazy">
+            </div>
+            <h4>The Bride's Prep</h4>
+          </div>
+
+          <!-- Item 3: The Ceremony -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/wedding/wedding_1.webp" alt="The Ceremony" loading="lazy">
+            </div>
+            <h4>The Ceremony</h4>
+          </div>
+
+          <!-- Item 4: The Ceremony 2 -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/haldi/haldi_4.webp" alt="The Ceremony" loading="lazy">
+            </div>
+            <h4>The Ceremony</h4>
+          </div>
+
+          <!-- Item 5: The Reception -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/mehndi/mehndi_5.webp" alt="The Reception" loading="lazy">
+            </div>
+            <h4>The Reception</h4>
+          </div>
+
+          <!-- Item 6: The Exit -->
+          <div class="category-card" onclick="document.getElementById('portfolio').scrollIntoView();">
+            <div class="category-image-wrap">
+              <img src="assets/gallery/wedding/wedding_14.webp" alt="The Exit" loading="lazy">
+            </div>
+            <h4>The Exit</h4>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -884,8 +715,87 @@
     </section>
 
     <!-- ==========================================================================
-         CONTACT SECTION (TALLY.SO FORM & LOCAL DETAILS)
+         FEATURED TEASERS SHOWCASE
          ========================================================================== -->
+    <section class="latest-teaser-section" id="teasers">
+      <div class="container">
+        
+        <div class="section-title-wrap reveal" style="text-align: center;">
+          <span class="section-subtitle">Cinematic Previews</span>
+          <h2 class="section-title">Featured Teasers</h2>
+        </div>
+
+        <div class="teasers-showcase-grid reveal">
+          
+          <!-- Teaser 1: Mia & Sam -->
+          <div class="teaser-showcase-card" data-video="assets/teasers/teaser_1.mp4">
+            <div class="teaser-card-video">
+              <video autoplay loop muted playsinline preload="auto">
+                <source src="assets/teasers/teaser_1_preview.webm" type="video/webm">
+                <source src="assets/teasers/teaser_1_preview.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="teaser-card-overlay">
+              <span class="teaser-card-label">Mia & Sam</span>
+              <div class="teaser-card-play-btn" aria-label="Play Teaser Film">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <div class="teaser-card-details">
+                <h3>The Grand Celebration</h3>
+                <span>Teaser Film &bull; 4:53 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teaser 2: Isha & Kabir -->
+          <div class="teaser-showcase-card" data-video="assets/teasers/teaser_2.mp4">
+            <div class="teaser-card-video">
+              <video autoplay loop muted playsinline preload="auto">
+                <source src="assets/teasers/teaser_2_preview.webm" type="video/webm">
+                <source src="assets/teasers/teaser_2_preview.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="teaser-card-overlay">
+              <span class="teaser-card-label">Isha & Kabir</span>
+              <div class="teaser-card-play-btn" aria-label="Play Highlight Film">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <div class="teaser-card-details">
+                <h3>Vows in the Palace</h3>
+                <span>Highlight Film &bull; 4:37 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teaser 3: Riya & Rohan -->
+          <div class="teaser-showcase-card" data-video="assets/teasers/teaser_3.mp4">
+            <div class="teaser-card-video">
+              <video autoplay loop muted playsinline preload="auto">
+                <source src="assets/teasers/teaser_3_preview.webm" type="video/webm">
+                <source src="assets/teasers/teaser_3_preview.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="teaser-card-overlay">
+              <span class="teaser-card-label">Riya & Rohan</span>
+              <div class="teaser-card-play-btn" aria-label="Play Pre-Wedding Film">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <div class="teaser-card-details">
+                <h3>Ganges Sunrise Love</h3>
+                <span>Pre-Wedding Trailer &bull; 5:03 min</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
     <section id="contact" class="section">
       <div class="container">
         
@@ -969,7 +879,7 @@
           <div class="tally-form-container">
             <!-- Tally.so responsive embed iframe -->
             <iframe 
-              src="https://tally.so/embed/w7W9Bv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+              src="https://tally.so/embed/RGrMVK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
               loading="lazy" 
               title="Wedding Films Booking Form">
             </iframe>
@@ -986,21 +896,34 @@
        ========================================================================== -->
   <footer>
     <div class="container">
-      <div class="footer-layout">
-        <div class="logo">
-          <img src="assets/logo.webp" alt="Wedding Films Logo">
-          <div class="logo-text">
-            WEDDING FILMS
-            <span>Kanpur</span>
-          </div>
+      <div class="footer-grid">
+        <!-- Footer Left: Studio Statement -->
+        <div class="footer-left">
+          <div class="footer-col-title">The Studio</div>
+          <p class="footer-statement">Bespoke cinematic wedding films documenting legacy and love since 2015. Headquartered in Kanpur, capturing emotions worldwide.</p>
         </div>
-        <div style="text-align: right;">
-          <p style="color: #ffffff; font-weight:500; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing:0.1em; font-size:0.8rem;">Ready to reserve your date?</p>
-          <a href="#contact" class="btn btn-primary" style="padding: 0.7rem 1.8rem; font-size: 0.75rem;">Get Pricing Packages</a>
+
+        <!-- Footer Center: Script Monogram Logo & Inquiries -->
+        <div class="footer-center">
+          <div class="footer-monogram">WF</div>
+          <div class="footer-col-title">Inquiries</div>
+          <p style="margin-bottom:0.25rem;"><a href="mailto:hello@weddingfilmskanpur.com" class="footer-link-premium">hello@weddingfilmskanpur.com</a></p>
+          <p><a href="https://wa.me/919026150098" target="_blank" class="footer-link-premium">+91 90261 50098</a></p>
+        </div>
+
+        <!-- Footer Right: Social Handles -->
+        <div class="footer-right">
+          <div class="footer-col-title">Connect</div>
+          <ul class="footer-social-links">
+            <li><a href="https://instagram.com/weddingfilms_kanpur" target="_blank">Instagram &nbsp;↗</a></li>
+            <li><a href="https://youtube.com/" target="_blank">YouTube Channel &nbsp;↗</a></li>
+            <li><a href="https://vimeo.com/" target="_blank">Vimeo Portfolio &nbsp;↗</a></li>
+          </ul>
         </div>
       </div>
-      
-      <div class="footer-copy">
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
         <p>&copy; 2026 Wedding Films Kanpur. All Rights Reserved.</p>
         <p>
           <a href="#about">About</a> &nbsp;|&nbsp; 
@@ -1023,6 +946,25 @@
       <img src="" alt="Zoomed View" class="lightbox-content">
       <div class="lightbox-caption"></div>
       <div class="lightbox-category"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TRAILER FILM PLAYER MODAL
+       ========================================================================== -->
+  <div id="trailer-modal" class="lightbox" aria-hidden="true" role="dialog">
+    <div class="lightbox-content-wrap" style="width: 85%; max-width: 960px; aspect-ratio: 16/9;">
+      <div class="lightbox-close" id="trailer-modal-close" aria-label="Close Trailer Film">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+        </svg>
+      </div>
+      <div style="width: 100%; height: 100%; background: #000; border: 1px solid var(--color-border);">
+        <video id="trailer-player" controls style="width: 100%; height: 100%; object-fit: contain;">
+          <source src="assets/hero_video_desktop_optimized.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   </div>
 
